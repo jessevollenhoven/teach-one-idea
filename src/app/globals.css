@@ -1,26 +1,121 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Colours. Text on every background below has a contrast ratio of at least 4.5 to 1. */
+@theme {
+  --color-ink: #151b3b;
+  --color-paper: #f1f3fb;
+  --color-line: #c9cfe4;
+  --color-muted: #454d6e;
+  --color-blue: #2b3bd6;
+  --color-blue-soft: #e4e8fc;
+  --color-berry: #c4286e;
+  --color-ok: #0b7a55;
+  --color-ok-soft: #dcf3e8;
+  --color-no: #b3261e;
+  --color-no-soft: #fbe4e1;
+  --color-mark: #ffd84d;
+  --font-sans: "Lexend Variable", ui-sans-serif, system-ui, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Lets the "hidden" attribute win over layout classes, so parts the learner is not on stay out of the way. */
+[hidden] {
+  display: none !important;
+}
+
+/* A line of working. */
+.math {
+  font-variant-numeric: lining-nums tabular-nums;
+  line-height: 1.5;
+}
+
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0 0.12em;
+  line-height: 1.15;
+}
+
+.frac-top {
+  min-width: 1.1em;
+  padding: 0 0.2em 0.06em;
+  border-bottom: 0.08em solid currentColor;
+  text-align: center;
+}
+
+.frac-bottom {
+  min-width: 1.1em;
+  padding: 0.06em 0.2em 0;
+  text-align: center;
+}
+
+/* The tutor's highlighter. */
+.mark {
+  background: var(--color-mark);
+  border-radius: 0.2em;
+  color: var(--color-ink);
+  box-decoration-break: clone;
+  padding: 0 0.12em;
+}
+
+/* An empty box the learner fills in. */
+.blank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5em;
+  min-height: 1.35em;
+  padding: 0 0.15em;
+  border: 2px dashed var(--color-muted);
+  border-radius: 0.25em;
+  background: white;
+  color: var(--color-ink);
+  font: inherit;
+  line-height: 1.2;
+}
+
+button.blank {
+  cursor: pointer;
+}
+
+.blank-active {
+  border-style: solid;
+  border-color: var(--color-blue);
+  background: var(--color-blue-soft);
+}
+
+/* A blinking cursor shows which box is being typed into. */
+.blank-active::after {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  background: var(--color-blue);
+  animation: blink 1s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blank-active::after {
+    animation: none;
+  }
 }
