@@ -34,13 +34,17 @@ export function Tutorial({ lesson }: { lesson: Lesson }) {
   }
 
   return (
-    <div className="min-h-dvh bg-paper">
-      <header className="border-b-2 border-ink bg-white">
+    // The whole page takes the colour of the part the learner is in, and fades to the next colour as they move on.
+    <div
+      className="min-h-dvh bg-field text-on-field motion-safe:transition-colors motion-safe:duration-500"
+      data-part={current}
+    >
+      <header>
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-2">
-          <h1 className="text-lg font-semibold">{lesson.title}</h1>
+          <h1 className="text-xl font-extrabold tracking-tight">{lesson.title}</h1>
           <button
             aria-pressed={voiceOn}
-            className="inline-flex min-h-11 items-center rounded-full border-2 border-ink px-4 text-sm font-semibold text-ink focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-ink aria-pressed:bg-ink aria-pressed:text-white"
+            className="inline-flex min-h-11 items-center rounded-full border-2 border-on-field px-4 text-sm font-bold focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-mark aria-pressed:bg-on-field aria-pressed:text-field"
             onClick={() => setVoiceOn((value) => !value)}
             type="button"
           >
@@ -52,12 +56,12 @@ export function Tutorial({ lesson }: { lesson: Lesson }) {
             <button
               aria-current={index === current ? "step" : undefined}
               aria-label={`Part ${index + 1}: ${part.title}${index > reached ? ", locked" : ""}`}
-              className={`inline-flex h-11 w-11 items-center justify-center rounded-full border-2 text-base font-semibold focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-ink ${
+              className={`inline-flex h-11 w-11 items-center justify-center rounded-full border-2 text-base font-bold focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-mark ${
                 index === current
-                  ? "border-blue bg-blue text-white"
+                  ? "border-on-field bg-on-field text-field"
                   : index <= reached
-                    ? "border-ink bg-white text-ink hover:bg-blue-soft"
-                    : "border-line bg-paper text-muted"
+                    ? "border-on-field text-on-field hover:bg-black/20"
+                    : "border-dashed border-on-field/60 text-on-field/80"
               } disabled:cursor-not-allowed`}
               disabled={index > reached}
               key={index}
@@ -67,7 +71,7 @@ export function Tutorial({ lesson }: { lesson: Lesson }) {
               {index + 1}
             </button>
           ))}
-          <p className="ml-2 text-base font-medium">{lesson.parts[current].title}</p>
+          <p className="ml-2 text-lg font-bold">{lesson.parts[current].title}</p>
         </nav>
       </header>
 

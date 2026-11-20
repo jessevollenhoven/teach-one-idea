@@ -26,20 +26,24 @@ export function ExplainPart({ part, active, voiceOn, nextLabel, onContinue }: Pr
     <PartLayout
       work={
         <div className="space-y-6">
-          <p className="text-sm font-medium text-muted">
+          <p className="text-base font-semibold">
             {index + 1} of {part.blocks.length}
           </p>
-          <h2 className="text-3xl font-semibold leading-tight">{block.title}</h2>
-          {block.math && <MathLine className="block text-4xl" focus={block.focus} math={block.math} />}
+          <h2 className="text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl">{block.title}</h2>
+          {block.math && (
+            <div className="rounded-2xl bg-white px-5 py-4 text-ink">
+              <MathLine className="block text-4xl" focus={block.focus} math={block.math} />
+            </div>
+          )}
           {block.visual && <FractionBars key={index} visual={block.visual} />}
           {block.list && (
-            <ol className="space-y-3 text-lg">
+            <ol className="space-y-4 text-xl font-medium">
               {block.list.map((item, i) => (
-                <li className="flex gap-3" key={item}>
-                  <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue font-semibold text-white">
+                <li className="flex gap-4" key={item}>
+                  <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white font-bold text-field">
                     {i + 1}
                   </span>
-                  <span className="pt-0.5">{item}</span>
+                  <span className="pt-0.5 leading-snug">{item}</span>
                 </li>
               ))}
             </ol>

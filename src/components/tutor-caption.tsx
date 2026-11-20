@@ -8,11 +8,11 @@ import { spoken } from "../lib/fractions";
 export type Tone = "neutral" | "right" | "wrong" | "close" | "hint";
 
 const tones: Record<Tone, { label: string; symbol: string; box: string; badge: string }> = {
-  neutral: { label: "Tutor", symbol: "•", box: "border-blue bg-blue-soft", badge: "bg-blue text-white" },
+  neutral: { label: "Tutor", symbol: "•", box: "border-field bg-paper", badge: "bg-field text-on-field" },
   right: { label: "Correct", symbol: "✓", box: "border-ok bg-ok-soft", badge: "bg-ok text-white" },
   wrong: { label: "Not yet", symbol: "✗", box: "border-no bg-no-soft", badge: "bg-no text-white" },
   close: { label: "Close", symbol: "!", box: "border-ink bg-[#fff3c4]", badge: "bg-ink text-white" },
-  hint: { label: "Hint", symbol: "?", box: "border-blue bg-blue-soft", badge: "bg-blue text-white" },
+  hint: { label: "Hint", symbol: "?", box: "border-field bg-paper", badge: "bg-field text-on-field" },
 };
 
 type TutorCaptionProps = {
@@ -37,7 +37,7 @@ export function TutorCaption({ text, tone, speak }: TutorCaptionProps) {
   return (
     <div
       aria-live="polite"
-      className={`max-h-[34dvh] overflow-y-auto rounded-lg border-l-8 p-3 lg:max-h-none ${style.box}`}
+      className={`max-h-[34dvh] overflow-y-auto rounded-xl border-l-8 p-3 lg:max-h-none ${style.box}`}
       role="status"
     >
       <p className="flex items-center gap-2 text-sm font-semibold text-ink">

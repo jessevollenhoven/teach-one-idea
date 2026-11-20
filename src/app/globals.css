@@ -1,20 +1,43 @@
 @import "tailwindcss";
 
-/* Colours. Text on every background below has a contrast ratio of at least 4.5 to 1. */
+/* Colours. Each part of the lesson owns a full-bleed colour field (set by data-part below).
+   Text on every background has a contrast ratio of at least 4.5 to 1. */
 @theme {
   --color-ink: #151b3b;
-  --color-paper: #f1f3fb;
+  --color-paper: #f4f5fb;
   --color-line: #c9cfe4;
   --color-muted: #454d6e;
-  --color-blue: #2b3bd6;
-  --color-blue-soft: #e4e8fc;
-  --color-berry: #c4286e;
+  --color-key: #e4e8f5;
+  --color-mark: #ffd84d;
   --color-ok: #0b7a55;
   --color-ok-soft: #dcf3e8;
   --color-no: #b3261e;
   --color-no-soft: #fbe4e1;
-  --color-mark: #ffd84d;
   --font-sans: "Lexend Variable", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* The colour of the current part. "inline" lets utilities such as bg-field follow the variable. */
+@theme inline {
+  --color-field: var(--field);
+  --color-on-field: var(--on-field);
+}
+
+:root,
+[data-part="0"] {
+  --field: #1d4ed8;
+  --on-field: #ffffff;
+}
+[data-part="1"] {
+  --field: #be1e68;
+  --on-field: #ffffff;
+}
+[data-part="2"] {
+  --field: #0b7a55;
+  --on-field: #ffffff;
+}
+[data-part="3"] {
+  --field: #151b3b;
+  --on-field: #ffffff;
 }
 
 html {
@@ -34,9 +57,10 @@ body {
   display: none !important;
 }
 
-/* A line of working. */
+/* A line of working: big, heavy numerals. */
 .math {
   font-variant-numeric: lining-nums tabular-nums;
+  font-weight: 700;
   line-height: 1.5;
 }
 
@@ -46,13 +70,13 @@ body {
   align-items: center;
   vertical-align: middle;
   margin: 0 0.12em;
-  line-height: 1.15;
+  line-height: 1.12;
 }
 
 .frac-top {
   min-width: 1.1em;
   padding: 0 0.2em 0.06em;
-  border-bottom: 0.08em solid currentColor;
+  border-bottom: 0.1em solid currentColor;
   text-align: center;
 }
 
@@ -71,7 +95,7 @@ body {
   padding: 0 0.12em;
 }
 
-/* An empty box the learner fills in. */
+/* An empty box the learner fills in. It is always white with dark text, so it reads on any colour. */
 .blank {
   display: inline-flex;
   align-items: center;
@@ -79,7 +103,7 @@ body {
   min-width: 1.5em;
   min-height: 1.35em;
   padding: 0 0.15em;
-  border: 2px dashed var(--color-muted);
+  border: 3px dashed rgb(21 27 59 / 0.55);
   border-radius: 0.25em;
   background: white;
   color: var(--color-ink);
@@ -91,20 +115,21 @@ button.blank {
   cursor: pointer;
 }
 
+/* The box being typed into gets a solid dark edge and a yellow ring. */
 .blank-active {
   border-style: solid;
-  border-color: var(--color-blue);
-  background: var(--color-blue-soft);
+  border-color: var(--color-ink);
+  box-shadow: 0 0 0 4px var(--color-mark);
 }
 
 /* A blinking cursor shows which box is being typed into. */
 .blank-active::after {
   content: "";
   display: inline-block;
-  width: 2px;
+  width: 3px;
   height: 1em;
   margin-left: 2px;
-  background: var(--color-blue);
+  background: var(--color-ink);
   animation: blink 1s steps(2, start) infinite;
 }
 

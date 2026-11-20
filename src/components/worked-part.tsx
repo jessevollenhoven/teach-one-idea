@@ -1,5 +1,5 @@
-// Part 2: a worked example. The working appears one line at a time, with the tutor explaining
-// each line and the highlighter pointing at the part being talked about.
+// Part 2: a worked example. The working appears one line at a time. The newest line sits in a white
+// block with the highlighter on it, and the tutor explains it.
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -32,24 +32,29 @@ export function WorkedPart({ part, active, voiceOn, nextLabel, onContinue }: Pro
   return (
     <PartLayout
       work={
-        <div className="space-y-6">
-          <p className="text-sm font-medium text-muted">
+        <div className="space-y-5">
+          <p className="text-base font-semibold">
             Line {shown} of {part.lines.length}
           </p>
-          {part.lines.slice(0, shown).map((line, index) => (
-            <div key={index} ref={index === shown - 1 ? lastLine : undefined}>
-              <MathLine
-                className="block text-4xl"
-                focus={index === shown - 1 ? line.focus : []}
-                math={line.math}
-              />
-              {line.visual && (
-                <div className="mt-4">
-                  <FractionBars visual={line.visual} />
-                </div>
-              )}
-            </div>
-          ))}
+          {part.lines.slice(0, shown).map((line, index) => {
+            const isNewest = index === shown - 1;
+            return (
+              <div key={index} ref={isNewest ? lastLine : undefined}>
+                {isNewest ? (
+                  <div className="rounded-2xl bg-white px-5 py-4 text-ink">
+                    <MathLine className="block text-4xl" focus={line.focus} math={line.math} />
+                  </div>
+                ) : (
+                  <MathLine className="block text-3xl" math={line.math} />
+                )}
+                {line.visual && (
+                  <div className="mt-4">
+                    <FractionBars visual={line.visual} />
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       }
       dock={

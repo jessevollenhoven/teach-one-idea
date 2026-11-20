@@ -11,7 +11,7 @@ type KeypadProps = {
 };
 
 const keyClasses =
-  "min-h-12 rounded-lg border-2 border-line bg-white text-xl font-semibold text-ink transition-colors active:bg-blue-soft hover:border-blue focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-ink";
+  "min-h-12 rounded-xl bg-key text-xl font-bold text-ink transition-colors hover:bg-line active:bg-line focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-ink";
 
 export function Keypad({ onDigit, onBackspace, onSwap, onHint, hintLabel, onCheck }: KeypadProps) {
   const rows = [["1", "2", "3", "4", "5"], ["6", "7", "8", "9", "0"]];

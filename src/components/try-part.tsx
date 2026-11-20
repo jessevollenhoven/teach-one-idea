@@ -182,25 +182,27 @@ export function TryPart({ part, generic, active, voiceOn, nextLabel, onContinue 
   return (
     <PartLayout
       work={
-        <div className="space-y-6">
-          <p className="text-sm font-medium text-muted">
+        <div className="space-y-5">
+          <p className="text-base font-semibold">
             {phase === "finished" ? "All done" : `Step ${stepIndex + 1} of ${steps.length}`}
           </p>
-          <MathLine className="block text-4xl" focus={focus} math={part.problem} />
+          <div className="rounded-2xl bg-black/25 px-5 py-4">
+            <MathLine className="block text-4xl" focus={focus} math={part.problem} />
+          </div>
           {doneLines.map((line, index) => (
             <div className="flex items-center gap-3" key={index} ref={index === doneLines.length - 1 ? newestLine : undefined}>
               <MathLine className="text-3xl" focus={focus} math={line.text} />
-              <span className="text-sm font-semibold text-ok">
-                <span aria-hidden="true">{line.shown ? "" : "✓ "}</span>
-                {line.shown ? "shown" : <span className="sr-only">correct</span>}
+              <span className="text-base font-bold">
+                {line.shown ? "shown" : <span aria-hidden="true">✓</span>}
+                {!line.shown && <span className="sr-only">correct</span>}
               </span>
             </div>
           ))}
           {phase === "answering" && (
-            <div ref={newestLine}>
+            <div className="rounded-2xl bg-white px-5 py-4 text-ink" ref={newestLine}>
               <MathLine
                 activeSlot={activeSlot}
-                className="text-3xl"
+                className="block text-4xl"
                 focus={focus}
                 math={step.math}
                 onPickSlot={setActiveSlot}
